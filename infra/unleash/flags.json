@@ -1,0 +1,25 @@
+{
+  "features": [
+    {
+      "name": "commerce",
+      "enabled": true,
+      "type": "release",
+      "project": "default",
+      "stale": false
+    },
+    {
+      "name": "cms",
+      "enabled": true,
+      "type": "release",
+      "project": "default",
+      "stale": false
+    },
+    {
+      "name": "analytics",
+      "enabled": true,
+      "type": "release",
+      "project": "default",
+      "stale": false
+    }
+  ]
+}

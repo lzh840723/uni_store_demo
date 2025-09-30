@@ -1,0 +1,13 @@
+{
+  "name": "scripts",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "seed:node": "tsx seed.node.ts"
+  },
+  "dependencies": {
+    "@prisma/client": "5.10.2",
+    "dotenv": "16.4.1",
+    "tsx": "3.14.0"
+  }
+}

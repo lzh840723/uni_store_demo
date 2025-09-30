@@ -1,0 +1,12 @@
+{
+  "name": "uni_store_demo",
+  "private": true,
+  "packageManager": "pnpm@8.15.7",
+  "scripts": {
+    "dev:web": "pnpm --filter ./apps/web dev",
+    "dev:api": "pnpm --filter ./apps/backend/node-api dev",
+    "build:web": "pnpm --filter ./apps/web build",
+    "lint": "pnpm --recursive lint",
+    "seed:node": "pnpm --filter ./scripts seed:node"
+  }
+}
