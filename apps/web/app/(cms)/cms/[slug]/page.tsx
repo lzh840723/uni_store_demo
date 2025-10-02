@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation';
-import { fetchPost } from '../../../../lib/api/cms';
+import { fetchPost } from '@/lib/api/cms';
 
 export default async function PostPage({ params }: { params: { slug: string } }) {
   const post = await fetchPost(params.slug).catch(() => null);

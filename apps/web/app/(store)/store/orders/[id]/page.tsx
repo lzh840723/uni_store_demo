@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { fetchOrder } from '../../../../lib/api/commerce';
-import { formatCurrency } from '../../../../lib/format';
+import { fetchOrder } from '@/lib/api/commerce';
+import { formatCurrency } from '@/lib/format';
 
 export default async function OrderDetailPage({ params, searchParams }: { params: { id: string }; searchParams: { display?: string } }) {
   const order = await fetchOrder(params.id).catch(() => null);

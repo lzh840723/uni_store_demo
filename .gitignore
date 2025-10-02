@@ -12,3 +12,4 @@ coverage/
 !apps/web/.env.local.example
 .DS_Store
 .gitignore
+.vercel

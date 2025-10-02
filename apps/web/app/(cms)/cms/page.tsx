@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { fetchPosts } from '../../../lib/api/cms';
+import { fetchPosts } from '@/lib/api/cms';
 
 export default async function CmsPage() {
   const posts = await fetchPosts();

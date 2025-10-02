@@ -6,7 +6,11 @@ settings:
 
 importers:
 
-  .: {}
+  .:
+    devDependencies:
+      prisma:
+        specifier: 5.10.2
+        version: 5.10.2
 
   apps/backend/node-api:
     dependencies:
@@ -74,6 +78,9 @@ importers:
 
   apps/web:
     dependencies:
+      '@prisma/client':
+        specifier: 5.10.2
+        version: 5.10.2(prisma@5.10.2)
       '@tanstack/react-query':
         specifier: 5.28.9
         version: 5.28.9(react@18.2.0)
@@ -95,10 +102,16 @@ importers:
       recharts:
         specifier: 2.9.0
         version: 2.9.0(prop-types@15.8.1)(react-dom@18.2.0)(react@18.2.0)
+      zod:
+        specifier: 3.23.8
+        version: 3.23.8
       zustand:
         specifier: 4.4.7
         version: 4.4.7(@types/react@18.2.57)(react@18.2.0)
     devDependencies:
+      '@types/js-cookie':
+        specifier: 3.0.6
+        version: 3.0.6
       '@types/node':
         specifier: 20.11.30
         version: 20.11.30
@@ -114,6 +127,9 @@ importers:
       eslint-config-next:
         specifier: 14.1.0
         version: 14.1.0(eslint@8.56.0)(typescript@5.3.3)
+      prisma:
+        specifier: 5.10.2
+        version: 5.10.2
       typescript:
         specifier: 5.3.3
         version: 5.3.3
@@ -990,6 +1006,10 @@ packages:
 
   /@types/http-errors@2.0.5:
     resolution: {integrity: sha512-r8Tayk8HJnX0FztbZN7oVqGccWgw98T/0neJphO91KkmOzug1KkofZURD4UaD5uH8AqcFLfdPErnBod0u71/qg==}
+    dev: true
+
+  /@types/js-cookie@3.0.6:
+    resolution: {integrity: sha512-wkw9yd1kEXOPnvEeEV1Go1MmxtBJL0RR79aOTAApecWFVu7w0NNXNqhcWgvw2YgZDYadliXkl14pa3WXw5jlCQ==}
     dev: true
 
   /@types/json5@0.0.29:
@@ -4594,6 +4614,10 @@ packages:
 
   /zod@3.22.4:
     resolution: {integrity: sha512-iC+8Io04lddc+mVqQ9AZ7OQ2MrUKGN+oIQyq1vemgt46jwCwLfhq7/pwnBnNXXXZb8VTVLKwp9EDkx+ryxIWmg==}
+    dev: false
+
+  /zod@3.23.8:
+    resolution: {integrity: sha512-XBx9AXhXktjUqnepgTiE5flcKIYWi/rme0Eaj+5Y0lftuGBq+jyRu/md4WnuxqgP1ubdpNCsYEYPxrzVHD8d6g==}
     dev: false
 
   /zustand@4.4.7(@types/react@18.2.57)(react@18.2.0):

@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { fetchFeatureFlags } from '../lib/flags.server';
+import { fetchFeatureFlags } from '@/lib/flags.server';
 
 const cards = [
   {

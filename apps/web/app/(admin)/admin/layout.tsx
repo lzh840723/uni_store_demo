@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import { notFound } from 'next/navigation';
-import { fetchFeatureFlags } from '../../../lib/flags.server';
-import { getCurrentRole } from '../../../lib/auth';
+import { fetchFeatureFlags } from '@/lib/flags.server';
+import { getCurrentRole } from '@/lib/auth';
 
 export default async function AdminLayout({ children }: { children: ReactNode }) {
   const flags = await fetchFeatureFlags();

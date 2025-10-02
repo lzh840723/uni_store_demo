@@ -1,9 +1,9 @@
 import './globals.css';
 import type { Metadata } from 'next';
-import { Providers } from '../lib/providers';
-import { fetchFeatureFlags } from '../lib/flags.server';
-import { getCurrentRole } from '../lib/auth';
-import { Navbar } from '../components/Navbar';
+import { Providers } from '@/lib/providers';
+import { fetchFeatureFlags } from '@/lib/flags.server';
+import { getCurrentRole } from '@/lib/auth';
+import { Navbar } from '@/components/Navbar';
 
 export const metadata: Metadata = {
   title: 'UniStore Demo',

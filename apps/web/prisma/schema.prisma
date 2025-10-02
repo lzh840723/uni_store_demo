@@ -1,0 +1,100 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+}
+
+enum Role {
+  CUSTOMER
+  ADMIN
+}
+
+enum CartStatus {
+  OPEN
+  COMPLETED
+}
+
+model Product {
+  id          String   @id @default(cuid())
+  title       String
+  slug        String   @unique
+  description String?
+  priceCents  Int
+  currency    String   @default("USD")
+  images      String[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  orderItems  OrderItem[]
+  cartItems   CartItem[]
+}
+
+model Order {
+  id         String       @id @default(cuid())
+  displayId  Int          @default(autoincrement())
+  totalCents Int
+  currency   String       @default("USD")
+  status     String       @default("paid")
+  customerId String?
+  customer   User?        @relation(fields: [customerId], references: [id])
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
+  items      OrderItem[]
+}
+
+model OrderItem {
+  id         String  @id @default(cuid())
+  orderId    String
+  order      Order   @relation(fields: [orderId], references: [id])
+  productId  String
+  product    Product @relation(fields: [productId], references: [id])
+  quantity   Int
+  unitCents  Int
+  currency   String  @default("USD")
+}
+
+model Cart {
+  id            String      @id @default(cuid())
+  status        CartStatus  @default(OPEN)
+  customerEmail String?
+  totalCents    Int          @default(0)
+  currency      String       @default("USD")
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+  items         CartItem[]
+}
+
+model CartItem {
+  id        String  @id @default(cuid())
+  cartId    String
+  cart      Cart    @relation(fields: [cartId], references: [id])
+  productId String
+  product   Product @relation(fields: [productId], references: [id])
+  quantity  Int
+}
+
+model Post {
+  id          String   @id @default(cuid())
+  title       String
+  slug        String   @unique
+  excerpt     String?
+  content     String
+  publishedAt DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  authorId    String?
+  author      User?    @relation(fields: [authorId], references: [id])
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  role      Role     @default(CUSTOMER)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  orders    Order[]
+  posts     Post[]
+}

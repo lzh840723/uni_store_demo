@@ -1,6 +1,6 @@
 import { redirect } from 'next/navigation';
-import { fetchFeatureFlags } from '../lib/flags.server';
-import { getCurrentRole } from '../lib/auth';
+import { fetchFeatureFlags } from '@/lib/flags.server';
+import { getCurrentRole } from '@/lib/auth';
 
 export default async function AnalyticsProxyPage() {
   const flags = await fetchFeatureFlags();
