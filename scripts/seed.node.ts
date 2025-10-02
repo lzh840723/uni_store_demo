@@ -79,17 +79,17 @@ async function seed() {
   await prisma.post.createMany({
     data: [
       {
-        title: '欢迎来到 UniStore',
+        title: 'Welcome to UniStore',
         slug: 'welcome-to-unistore',
-        excerpt: '了解我们的愿景与产品路线。',
-        content: 'UniStore 是一个示范性的全渠道电商体验。',
+        excerpt: 'Learn about the UniStore vision and roadmap.',
+        content: 'UniStore is a showcase for an omnichannel commerce experience.',
         authorId: admin.id
       },
       {
-        title: '季度新品预览',
+        title: 'Seasonal Launch Preview',
         slug: 'unistore-season-launch',
-        excerpt: '抢先看即将上线的新品。',
-        content: '我们将推出多款围绕工作与生活方式的新品。',
+        excerpt: 'Get a sneak peek at the products arriving soon.',
+        content: 'We are preparing a new drop focused on work and lifestyle essentials.',
         authorId: admin.id
       }
     ]

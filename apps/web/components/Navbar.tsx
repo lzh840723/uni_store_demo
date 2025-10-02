@@ -11,6 +11,7 @@ import { FlagToggle } from './FlagToggle';
 const links = [
   { href: '/store', label: 'Storefront', feature: 'commerce', roles: ['ADMIN', 'CUSTOMER'] as Role[] },
   { href: '/admin', label: 'Admin', feature: 'commerce', roles: ['ADMIN'] as Role[] },
+  { href: '/admin/analytics', label: 'Analytics', feature: 'analytics', roles: ['ADMIN'] as Role[] },
   { href: '/cms', label: 'CMS', feature: 'cms', roles: ['ADMIN', 'CUSTOMER'] as Role[] }
 ];
 

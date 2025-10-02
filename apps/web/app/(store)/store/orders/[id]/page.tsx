@@ -12,27 +12,27 @@ export default async function OrderDetailPage({ params, searchParams }: { params
 
   return (
     <section className="surface" style={{ maxWidth: '640px', margin: '0 auto', marginTop: '2rem' }}>
-      <h1>订单确认</h1>
-      <p>感谢你的购买！以下是订单摘要。</p>
+      <h1>Order confirmation</h1>
+      <p>Thanks for your purchase! Below is the order summary.</p>
       <p>
-        订单号：<strong>{searchParams.display ?? order.displayId ?? order.id}</strong>
+        Order #: <strong>{searchParams.display ?? order.displayId ?? order.id}</strong>
       </p>
       <ul style={{ listStyle: 'none', padding: 0, display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
         {order.items.map((item) => (
           <li key={item.id} style={{ display: 'flex', justifyContent: 'space-between' }}>
             <span>
-              {item.product?.title ?? '商品'} × {item.quantity}
+              {item.product?.title ?? 'Item'} × {item.quantity}
             </span>
             <span>{formatCurrency(item.unitCents * item.quantity, item.currency)}</span>
           </li>
         ))}
       </ul>
       <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '1.25rem', fontWeight: 600 }}>
-        <span>合计</span>
+        <span>Total</span>
         <span>{formatCurrency(order.totalCents, order.currency)}</span>
       </div>
       <Link href="/store" style={{ marginTop: '1.5rem', display: 'inline-block', color: 'var(--color-primary)' }}>
-        返回继续购物
+        Continue shopping
       </Link>
     </section>
   );

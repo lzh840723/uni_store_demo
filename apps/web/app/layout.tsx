@@ -7,7 +7,7 @@ import { Navbar } from '../components/Navbar';
 
 export const metadata: Metadata = {
   title: 'UniStore Demo',
-  description: '多入口电商 + CMS + Admin 演示项目'
+  description: 'Multi-entry ecommerce, admin, and CMS showcase'
 };
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
@@ -15,7 +15,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const role = getCurrentRole();
 
   return (
-    <html lang="zh-CN">
+    <html lang="en">
       <body>
         <Providers initialFlags={flags}>
           <Navbar role={role} />

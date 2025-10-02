@@ -43,10 +43,10 @@ export function AdminCmsManager() {
 
   return (
     <div className="surface">
-      <h1 style={{ marginTop: 0 }}>CMS 管理</h1>
+      <h1 style={{ marginTop: 0 }}>CMS management</h1>
       <form onSubmit={handleSubmit} style={{ display: 'grid', gap: '0.75rem', marginBottom: '1.25rem' }}>
         <label style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
-          <span>标题</span>
+          <span>Title</span>
           <input value={form.title} onChange={(event) => setForm((prev) => ({ ...prev, title: event.target.value }))} required />
         </label>
         <label style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
@@ -54,16 +54,16 @@ export function AdminCmsManager() {
           <input value={form.slug} onChange={(event) => setForm((prev) => ({ ...prev, slug: event.target.value }))} required />
         </label>
         <label style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
-          <span>摘要</span>
+          <span>Excerpt</span>
           <textarea value={form.excerpt} onChange={(event) => setForm((prev) => ({ ...prev, excerpt: event.target.value }))} rows={2} />
         </label>
         <label style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
-          <span>内容</span>
+          <span>Content</span>
           <textarea value={form.content} onChange={(event) => setForm((prev) => ({ ...prev, content: event.target.value }))} rows={5} required />
         </label>
         <div style={{ display: 'flex', gap: '0.5rem' }}>
           <button type="submit" style={{ padding: '0.6rem 1rem', borderRadius: '8px', border: 'none', background: 'var(--color-primary)', color: '#fff' }}>
-            {editing ? '保存文章' : '新增文章'}
+            {editing ? 'Save article' : 'Create article'}
           </button>
           {editing && (
             <button
@@ -74,7 +74,7 @@ export function AdminCmsManager() {
               }}
               style={{ padding: '0.6rem 1rem', borderRadius: '8px', border: '1px solid rgba(15,23,42,0.2)', background: 'transparent' }}
             >
-              取消
+              Cancel
             </button>
           )}
         </div>
@@ -83,10 +83,10 @@ export function AdminCmsManager() {
       <table style={{ width: '100%', borderCollapse: 'collapse' }}>
         <thead>
           <tr style={{ textAlign: 'left', borderBottom: '1px solid rgba(15,23,42,0.1)' }}>
-            <th>标题</th>
+            <th>Title</th>
             <th>Slug</th>
-            <th>发布时间</th>
-            <th>操作</th>
+            <th>Published</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -94,7 +94,7 @@ export function AdminCmsManager() {
             <tr key={post.id} style={{ borderBottom: '1px solid rgba(15,23,42,0.08)' }}>
               <td>{post.title}</td>
               <td>{post.slug}</td>
-              <td>{new Date(post.publishedAt).toLocaleString('zh-CN')}</td>
+              <td>{new Date(post.publishedAt).toLocaleString('en-US')}</td>
               <td style={{ display: 'flex', gap: '0.5rem' }}>
                 <button
                   type="button"
@@ -109,14 +109,14 @@ export function AdminCmsManager() {
                   }}
                   style={{ border: 'none', background: 'transparent', color: 'var(--color-primary)' }}
                 >
-                  编辑
+                  Edit
                 </button>
                 <button
                   type="button"
                   onClick={() => remove.mutate(post.id)}
                   style={{ border: 'none', background: 'transparent', color: '#ef4444' }}
                 >
-                  删除
+                  Delete
                 </button>
               </td>
             </tr>

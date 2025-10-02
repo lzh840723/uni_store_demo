@@ -3,28 +3,28 @@ import Link from 'next/link';
 const cards = [
   {
     href: '/admin/products',
-    title: '商品管理',
-    description: '新增 / 编辑 / 删除商品，并同步到前台。'
+    title: 'Product Management',
+    description: 'Create, edit, and delete products that sync to the storefront.'
   },
   {
     href: '/admin/orders',
-    title: '订单中心',
-    description: '查看 7 日内订单与支付状态。'
+    title: 'Order Center',
+    description: 'Review the latest 7 days of orders and payment status.'
   },
   {
     href: '/admin/users',
-    title: '用户角色',
-    description: '切换演示用户的角色信息。'
+    title: 'User Roles',
+    description: 'Toggle demo users between Admin and Customer roles.'
   },
   {
     href: '/admin/analytics',
     title: 'Analytics',
-    description: '查看 7 日订单数与 GMV 趋势图。'
+    description: 'Track 7-day order counts and GMV trends.'
   },
   {
     href: '/admin/cms',
-    title: 'CMS 管理',
-    description: '维护文章内容或跳转 Keystone。'
+    title: 'CMS Management',
+    description: 'Maintain demo articles, or jump into the Keystone admin when enabled.'
   }
 ];
 

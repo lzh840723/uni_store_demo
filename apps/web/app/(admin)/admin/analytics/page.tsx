@@ -1,6 +1,6 @@
 import dynamic from 'next/dynamic';
 
-const AdminAnalytics = dynamic(() => import('../../../../components/admin/AdminAnalytics').then((mod) => mod.AdminAnalytics), {
+const AdminAnalytics = dynamic(() => import('../../../../components/admin/AdminAnalytics'), {
   ssr: false
 });
 

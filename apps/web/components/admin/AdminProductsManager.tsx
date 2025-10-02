@@ -62,13 +62,13 @@ export function AdminProductsManager() {
 
   return (
     <div className="surface">
-      <h1 style={{ marginTop: 0 }}>商品管理</h1>
+      <h1 style={{ marginTop: 0 }}>Product management</h1>
       <form
         onSubmit={handleSubmit}
         style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1rem', marginBottom: '1.5rem' }}
       >
         <label style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
-          <span>标题</span>
+          <span>Title</span>
           <input value={form.title} onChange={(event) => setForm((prev) => ({ ...prev, title: event.target.value }))} required />
         </label>
         <label style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
@@ -76,7 +76,7 @@ export function AdminProductsManager() {
           <input value={form.slug} onChange={(event) => setForm((prev) => ({ ...prev, slug: event.target.value }))} required />
         </label>
         <label style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
-          <span>价格（分）</span>
+          <span>Price (cents)</span>
           <input
             type="number"
             value={form.priceCents}
@@ -86,16 +86,16 @@ export function AdminProductsManager() {
           />
         </label>
         <label style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
-          <span>货币</span>
+          <span>Currency</span>
           <input value={form.currency} onChange={(event) => setForm((prev) => ({ ...prev, currency: event.target.value }))} />
         </label>
         <label style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
-          <span>图片 URL</span>
+          <span>Image URL</span>
           <input value={form.image} onChange={(event) => setForm((prev) => ({ ...prev, image: event.target.value }))} />
         </label>
         <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'flex-end' }}>
           <button type="submit" style={{ padding: '0.6rem 1rem', borderRadius: '8px', border: 'none', background: 'var(--color-primary)', color: '#fff' }}>
-            {editing ? '保存修改' : '新增商品'}
+            {editing ? 'Save changes' : 'Create product'}
           </button>
           {editing && (
             <button
@@ -106,7 +106,7 @@ export function AdminProductsManager() {
               }}
               style={{ padding: '0.6rem 1rem', borderRadius: '8px', border: '1px solid rgba(15,23,42,0.2)', background: 'transparent' }}
             >
-              取消
+              Cancel
             </button>
           )}
         </div>
@@ -115,10 +115,10 @@ export function AdminProductsManager() {
       <table style={{ width: '100%', borderCollapse: 'collapse' }}>
         <thead>
           <tr style={{ textAlign: 'left', borderBottom: '1px solid rgba(15,23,42,0.1)' }}>
-            <th>标题</th>
+            <th>Title</th>
             <th>Slug</th>
-            <th>价格</th>
-            <th>操作</th>
+            <th>Price</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -142,14 +142,14 @@ export function AdminProductsManager() {
                   }}
                   style={{ border: 'none', background: 'transparent', color: 'var(--color-primary)' }}
                 >
-                  编辑
+                  Edit
                 </button>
                 <button
                   type="button"
                   onClick={() => deleteMutation.mutate(product.id)}
                   style={{ border: 'none', background: 'transparent', color: '#ef4444' }}
                 >
-                  删除
+                  Delete
                 </button>
               </td>
             </tr>

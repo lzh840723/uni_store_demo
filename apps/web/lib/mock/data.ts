@@ -1,4 +1,4 @@
-// demo-mode: 本地假数据，用于后端不可用时的降级体验。
+// demo-mode: local fallback data used when the backend is unavailable.
 import type { Product, ProductListResponse, OrderDetail } from '../api/commerce';
 import type { Post } from '../api/cms';
 
@@ -7,7 +7,7 @@ export const mockProducts: Product[] = [
     id: 'mock-product-1',
     title: 'Mock Hoodie',
     slug: 'mock-hoodie',
-    description: '后端离线时使用的占位商品。',
+    description: 'Placeholder product when the backend is offline.',
     priceCents: 4900,
     currency: 'USD',
     images: ['https://picsum.photos/seed/mock-hoodie/600/600']
@@ -16,7 +16,7 @@ export const mockProducts: Product[] = [
     id: 'mock-product-2',
     title: 'Mock Tote Bag',
     slug: 'mock-tote',
-    description: '演示模式下的默认商品。',
+    description: 'Default item for demo-only scenarios.',
     priceCents: 1900,
     currency: 'USD',
     images: ['https://picsum.photos/seed/mock-tote/600/600']
@@ -48,10 +48,10 @@ export const mockOrder: OrderDetail = {
 export const mockPosts: Post[] = [
   {
     id: 'mock-post-1',
-    title: '后端离线演示',
+    title: 'Offline Demo Mode',
     slug: 'mock-post',
-    excerpt: '这是一个演示模式下的占位文章。',
-    content: '当 Node API 暂不可用时，前端会退化到本地 mock 数据。',
+    excerpt: 'A placeholder article shown when the API is offline.',
+    content: 'When the Node API is unavailable, the frontend falls back to local mock data.',
     publishedAt: new Date().toISOString()
   }
 ];

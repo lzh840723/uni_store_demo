@@ -20,7 +20,7 @@ export function CheckoutForm() {
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
     if (!cartId) {
-      setError('购物车为空或已过期');
+      setError('Cart is empty or has expired.');
       return;
     }
     setSubmitting(true);
@@ -30,7 +30,7 @@ export function CheckoutForm() {
       reset();
       router.push(`/store/orders/${result.orderId}?display=${result.orderNumber}`);
     } catch (submitError) {
-      setError('提交失败，请重试');
+      setError('Checkout failed, please try again.');
       console.error(submitError);
     } finally {
       setSubmitting(false);
@@ -41,11 +41,11 @@ export function CheckoutForm() {
 
   return (
     <form onSubmit={handleSubmit} className="surface" style={{ maxWidth: '640px', margin: '0 auto' }}>
-      <h1>结账</h1>
-      {!cartId && <p style={{ color: '#ef4444' }}>当前没有购物车，请返回商品页添加商品。</p>}
+      <h1>Checkout</h1>
+      {!cartId && <p style={{ color: '#ef4444' }}>No active cart found. Please add a product before checking out.</p>}
       {cart && (
         <div style={{ marginBottom: '1.5rem' }}>
-          <h2 style={{ fontSize: '1rem', marginBottom: '0.5rem' }}>订单摘要</h2>
+          <h2 style={{ fontSize: '1rem', marginBottom: '0.5rem' }}>Order summary</h2>
           <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
             {cart.items.map((item) => (
               <li key={item.id} style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -57,14 +57,14 @@ export function CheckoutForm() {
             ))}
           </ul>
           <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '1rem', fontWeight: 600 }}>
-            <span>合计</span>
+            <span>Total</span>
             <span>{formatCurrency(cart.totalCents, cart.currency)}</span>
           </div>
         </div>
       )}
 
       <label style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', marginBottom: '1rem' }}>
-        <span>联系邮箱</span>
+        <span>Contact email</span>
         <input
           type="email"
           value={email}
@@ -88,7 +88,7 @@ export function CheckoutForm() {
           fontWeight: 600
         }}
       >
-        {submitting ? '支付中…' : '模拟支付'}
+        {submitting ? 'Processing payment…' : 'Complete demo checkout'}
       </button>
     </form>
   );

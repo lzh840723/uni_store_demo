@@ -1,82 +1,82 @@
 # UniStore Demo
 
-UniStore 是一个使用 **Next.js App Router** + **Node.js (Express + Prisma)** 构建的多入口演示项目，覆盖 Storefront、Admin、CMS 三个入口及 Feature Flag、角色切换、模拟电商流程等场景。项目以 pnpm monorepo 组织，支持可选的 Unleash 与 Keystone 集成。
+UniStore is a **Next.js (App Router) + Node.js (Express + Prisma)** demo that showcases three entry points—storefront, admin, and CMS—plus feature flags, role switching, and a mock checkout flow. The project uses pnpm workspaces and can optionally integrate Unleash or Keystone.
 
-## 项目结构
+## Project Structure
 
 ```text
 apps/
-  web/                # Next.js 前端 (App Router)
-    app/(store)       # Storefront 流程
-    app/(admin)       # 管理后台页面
-    app/(cms)         # CMS 前台
-    components/       # Navbar / RoleSwitcher / Charts 等 UI
-    lib/              # API SDK、flag helper、zustand store
+  web/                # Next.js frontend (App Router)
+    app/(store)       # Storefront routes
+    app/(admin)       # Admin console routes
+    app/(cms)         # CMS public routes
+    components/       # Shared UI (Navbar / RoleSwitcher / Charts)
+    lib/              # API SDKs, flag helpers, state stores
   backend/
-    node-api/         # Express + Prisma 后端，REST API
+    node-api/         # Express + Prisma REST API
 infra/
-  docker-compose.yml  # Postgres / Redis / Unleash / Node API 容器编排
+  docker-compose.yml  # Postgres / Redis / Unleash / Node API services
 scripts/
-  seed.node.ts        # 演示数据播种脚本
+  seed.node.ts        # Demo data seeding script
 ```
 
-## 快速开始
+## Quick Start
 
-1. 安装依赖
+1. Install dependencies
    ```bash
    pnpm i
    ```
-2. 启动基础设施（Postgres / Redis / Unleash / Node API 容器）
+2. Start infrastructure (Postgres / Redis / Unleash / Node API image)
    ```bash
    docker compose -f infra/docker-compose.yml up -d
    ```
-3. 创建并填充环境变量
+3. Create env files
    ```bash
    cp .env.example .env.local
    cp apps/backend/node-api/.env.example apps/backend/node-api/.env
    ```
-4. 同步数据库并播种数据
+4. Sync database and seed demo data
    ```bash
    pnpm --filter ./apps/backend/node-api prisma:migrate
    pnpm --filter ./apps/backend/node-api prisma:generate
    pnpm run seed:node
    ```
-5. 启动服务
+5. Launch services
    ```bash
    pnpm --filter ./apps/backend/node-api dev   # Node API (http://localhost:9101)
    pnpm --filter ./apps/web dev                # Next.js (http://localhost:3000)
    ```
 
-## 核心特性
+## Highlights
 
-- **Storefront 流程**：商品列表 → 详情 → 加入购物车 → Checkout → 订单确认（模拟支付）。
-- **Admin 后台**：商品 / 订单 / 用户 / CMS CRUD + 近 7 日订单 & GMV 图表（Recharts）。
-- **CMS 模块**：文章列表与详情，后台支持发布 / 编辑 / 删除。
-- **Auth & Role Switcher**：通过前端按钮快速切换 Admin / Customer（Cookie 持久化，middleware 守卫 /admin 路由）。
-- **Feature Flags**：优先读取 Unleash，未启用时回落到本地 env；FlagToggle 会写入 cookie + localStorage，影响导航和服务端守卫。
-- **演示降级**：若 Node API 不可用，前台将自动回退到 `lib/mock` 假数据；写操作仍需真实 API。
+- **Storefront flow**: browse products, add to cart, run a mock checkout, and view the confirmation page.
+- **Admin console**: CRUD for products/orders/users plus a 7-day GMV chart powered by Recharts.
+- **CMS module**: article list + detail views with simple admin CRUD.
+- **Auth & Role Switcher**: toggle demo users between Admin/Customer with cookie-based guards.
+- **Feature flags**: prefer Unleash, fall back to local env flags; the FlagToggle updates cookies and localStorage.
+- **Demo fallback**: if the Node API is offline, the frontend falls back to `lib/mock` data for read-only browsing.
 
-## 常用命令
+## Common Commands
 
 ```bash
-pnpm i                               # 安装 monorepo 依赖
-pnpm --filter ./apps/web dev         # 启动 Next.js 开发服务
-pnpm --filter ./apps/backend/node-api dev  # 启动 Node API
-pnpm run seed:node                   # 播种演示数据
-pnpm --filter ./apps/web build       # 生产构建
+pnpm i                               # Install workspace dependencies
+pnpm --filter ./apps/web dev         # Start Next.js dev server
+pnpm --filter ./apps/backend/node-api dev  # Start Node API
+pnpm run seed:node                   # Seed demo data
+pnpm --filter ./apps/web build       # Production build
 ```
 
-## 环境变量
+## Environment Variables
 
-`.env.example` 提供最小集合；重要键：
-- `API_BASE_URL` / `NEXT_PUBLIC_API_URL`：Node API 地址（默认为 `http://localhost:9101`）。
-- `DATABASE_URL`：PostgreSQL 连接串。
-- `FLAG_COMMERCE` / `FLAG_CMS` / `FLAG_ANALYTICS`：本地 Feature Flag 默认值。
-- `UNLEASH_*`：可选的 Unleash 服务端配置。
+`.env.example` contains the minimal set:
+- `API_BASE_URL` / `NEXT_PUBLIC_API_URL`: Node API address (default `http://localhost:9101`).
+- `DATABASE_URL`: PostgreSQL connection string.
+- `FLAG_COMMERCE` / `FLAG_CMS` / `FLAG_ANALYTICS`: local feature flag defaults.
+- `UNLEASH_*`: optional Unleash configuration.
 
-## 测试与后续计划
+## Next Steps
 
-- TODO：补充 Vitest 单元测试、Playwright E2E（覆盖 Storefront、Admin、CMS核心路径）。
-- TODO：扩展 `lib/mock` 以支持 Node API 不可用时的完全前端演示模式。
+- TODO: add Vitest unit tests and Playwright E2E coverage for storefront/admin/CMS flows.
+- TODO: extend `lib/mock` to support a fully offline demo mode.
 
-欢迎根据 PRD 继续扩展后端模块、Keystone 集成以及更多自动化测试。
+Feel free to extend the backend modules, integrate Keystone, or automate more tests.

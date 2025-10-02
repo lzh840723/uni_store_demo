@@ -14,13 +14,13 @@ export function AdminUsersManager() {
 
   return (
     <div className="surface">
-      <h1 style={{ marginTop: 0 }}>用户角色管理</h1>
+      <h1 style={{ marginTop: 0 }}>User roles</h1>
       <table style={{ width: '100%', borderCollapse: 'collapse' }}>
         <thead>
           <tr style={{ textAlign: 'left', borderBottom: '1px solid rgba(15,23,42,0.1)' }}>
             <th>Email</th>
-            <th>角色</th>
-            <th>操作</th>
+            <th>Role</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -34,14 +34,14 @@ export function AdminUsersManager() {
                   onClick={() => updateMutation.mutate({ id: user.id, role: 'ADMIN' })}
                   style={{ border: 'none', background: 'transparent', color: 'var(--color-primary)' }}
                 >
-                  设为 Admin
+                  Set as Admin
                 </button>
                 <button
                   type="button"
                   onClick={() => updateMutation.mutate({ id: user.id, role: 'CUSTOMER' })}
                   style={{ border: 'none', background: 'transparent', color: '#ef4444' }}
                 >
-                  设为 Customer
+                  Set as Customer
                 </button>
               </td>
             </tr>

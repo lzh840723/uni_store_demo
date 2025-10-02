@@ -31,8 +31,8 @@ export function AddToCartButton({ productId }: { productId: string }) {
         gap: '0.5rem'
       }}
     >
-      {loading ? '处理中…' : '加入购物车'}
-      {added && <span style={{ fontSize: '0.8rem' }}>✓ 已加入</span>}
+      {loading ? 'Processing…' : 'Add to cart'}
+      {added && <span style={{ fontSize: '0.8rem' }}>✓ Added</span>}
     </button>
   );
 }

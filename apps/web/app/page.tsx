@@ -5,19 +5,19 @@ const cards = [
   {
     href: '/store',
     title: 'Storefront',
-    description: '商品浏览、加入购物车并完成模拟结账。',
+    description: 'Browse products, add items to the cart, and run through the mock checkout.',
     feature: 'commerce'
   },
   {
     href: '/admin',
     title: 'Admin',
-    description: '管理商品 / 订单 / 用户，并查看 7 日 GMV。',
+    description: 'Manage products, orders, and users, and monitor 7-day GMV.',
     feature: 'commerce'
   },
   {
     href: '/cms',
     title: 'CMS',
-    description: '浏览文章内容，体验内置 CMS。',
+    description: 'Read demo articles and explore the lightweight CMS demo.',
     feature: 'cms'
   }
 ] as const;
@@ -27,10 +27,10 @@ export default async function HomePage() {
 
   return (
     <section className="surface" style={{ marginTop: '2rem' }}>
-      <h1 style={{ marginTop: 0 }}>UniStore 多入口演示</h1>
+      <h1 style={{ marginTop: 0 }}>UniStore Multi-entry Demo</h1>
       <p style={{ maxWidth: '640px', color: 'rgba(15, 23, 42, 0.7)' }}>
-        通过顶部的 RoleSwitcher 与 FlagToggle，可以快速切换 Admin / Customer 视角，或关闭模块实现
-        feature flag 演示。
+        Use the RoleSwitcher and FlagToggle in the navbar to jump between Admin and Customer
+        perspectives or disable modules when demonstrating feature flags.
       </p>
       <div className="card-grid" style={{ marginTop: '2rem' }}>
         {cards.map((card) => {
