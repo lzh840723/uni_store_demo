@@ -34,6 +34,7 @@ scripts/
    ```bash
    cp .env.example .env.local
    cp apps/backend/node-api/.env.example apps/backend/node-api/.env
+   cp apps/web/.env.local.example apps/web/.env.local
    ```
 4. Sync database and seed demo data
    ```bash
@@ -68,11 +69,15 @@ pnpm --filter ./apps/web build       # Production build
 
 ## Environment Variables
 
-`.env.example` contains the minimal set:
-- `API_BASE_URL` / `NEXT_PUBLIC_API_URL`: Node API address (default `http://localhost:9101`).
-- `DATABASE_URL`: PostgreSQL connection string.
-- `FLAG_COMMERCE` / `FLAG_CMS` / `FLAG_ANALYTICS`: local feature flag defaults.
+Root `.env.example` lists the backend defaults:
+- `API_BASE_URL`: Node API address (default `http://localhost:9101`).
+- `DATABASE_URL`: PostgreSQL connection string (use your Supabase/Neon pooler URL).
+- `DIRECT_URL`: Direct connection URL for Prisma migrations.
+- `FLAG_COMMERCE` / `FLAG_CMS` / `FLAG_ANALYTICS`: local flag fallbacks.
 - `UNLEASH_*`: optional Unleash configuration.
+
+Frontend `.env.local` only needs one variable:
+- `NEXT_PUBLIC_API_URL`: The deployed API base URL (e.g. `https://<api>.vercel.app`).
 
 ## Next Steps
 
