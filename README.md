@@ -2,86 +2,60 @@
 
 UniStore is a **Next.js (App Router) + Node.js (Express + Prisma)** demo that showcases three entry points—storefront, admin, and CMS—plus feature flags, role switching, and a mock checkout flow. The project uses pnpm workspaces and can optionally integrate Unleash or Keystone.
 
+## Try It Online
+
+Visit the live MVP at https://unistoredemo.vercel.app/ to explore the latest functionality.
+
 ## Project Structure
 
 ```text
 apps/
-  web/                # Next.js frontend (App Router)
-    app/(store)       # Storefront routes
-    app/(admin)       # Admin console routes
-    app/(cms)         # CMS public routes
-    components/       # Shared UI (Navbar / RoleSwitcher / Charts)
-    lib/              # API SDKs, flag helpers, state stores
+  web/                    # Next.js App Router frontend
+    app/(store)           # Storefront routes
+    app/(admin)           # Admin console routes
+    app/(cms)             # CMS publishing routes
+    app/analytics         # Shared analytics entry point
+    app/api               # Route handlers consumed by the frontend
+    components/           # Shared UI (navigation, charts, role switchers)
+    lib/                  # Data clients, feature flags, client/server stores
+      api/                # REST wrappers for the Node API
+      mock/               # Offline fixtures for demo mode
+      store/              # Zustand stores and state helpers
+    prisma/               # Frontend Prisma schema (readonly)
+    server/               # Server utilities (flags, HTTP client, schemas)
   backend/
-    node-api/         # Express + Prisma REST API
+    node-api/             # Express + Prisma API service
+      src/                # API routes, services, and middleware
+      prisma/             # Prisma schema and migrations
 infra/
-  docker-compose.yml  # Postgres / Redis / Unleash / Node API services
+  docker-compose.yml      # PostgreSQL / Redis / Unleash / API containers
 scripts/
-  seed.node.ts        # Demo data seeding script
+  seed.node.ts            # Demo data seeding script for the Node API
+  package.json            # Local script dependencies
 ```
-
-## Quick Start
-
-1. Install dependencies
-   ```bash
-   pnpm i
-   ```
-2. Start infrastructure (Postgres / Redis / Unleash / Node API image)
-   ```bash
-   docker compose -f infra/docker-compose.yml up -d
-   ```
-3. Create env files
-   ```bash
-   cp .env.example .env.local
-   cp apps/backend/node-api/.env.example apps/backend/node-api/.env
-   cp apps/web/.env.local.example apps/web/.env.local
-   ```
-4. Sync database and seed demo data
-   ```bash
-   pnpm --filter ./apps/backend/node-api prisma:migrate
-   pnpm --filter ./apps/backend/node-api prisma:generate
-   pnpm run seed:node
-   ```
-5. Launch services
-   ```bash
-   pnpm --filter ./apps/backend/node-api dev   # Node API (http://localhost:9101)
-   pnpm --filter ./apps/web dev                # Next.js (http://localhost:3000)
-   ```
 
 ## Highlights
 
-- **Storefront flow**: browse products, add to cart, run a mock checkout, and view the confirmation page.
-- **Admin console**: CRUD for products/orders/users plus a 7-day GMV chart powered by Recharts.
-- **CMS module**: article list + detail views with simple admin CRUD.
-- **Auth & Role Switcher**: toggle demo users between Admin/Customer with cookie-based guards.
-- **Feature flags**: prefer Unleash, fall back to local env flags; the FlagToggle updates cookies and localStorage.
-- **Demo fallback**: if the Node API is offline, the frontend falls back to `lib/mock` data for read-only browsing.
-
-## Common Commands
-
-```bash
-pnpm i                               # Install workspace dependencies
-pnpm --filter ./apps/web dev         # Start Next.js dev server
-pnpm --filter ./apps/backend/node-api dev  # Start Node API
-pnpm run seed:node                   # Seed demo data
-pnpm --filter ./apps/web build       # Production build
-```
+- **Storefront journey**: browse the catalog, add items to a cart backed by the Node API, complete a mock checkout, and land on an order confirmation view.
+- **Admin workspace**: manage product listings, moderate CMS posts, review recent orders, adjust user roles, and chart 7-day order/GMV trends with Recharts.
+- **CMS publishing**: ship articles through public list/detail pages while editors maintain content through the admin CMS manager.
+- **Role-based access**: middleware enforces admin-only routes, and the in-app RoleSwitcher persists selections with cookies for quick toggling.
+- **Feature flags**: `/api/flags` integrates with Unleash and falls back to env defaults; the FlagToggle writes overrides to cookies and localStorage.
+- **Offline safety net**: storefront and CMS reads fall back to `lib/mock` fixtures when the Node API is unreachable, keeping the experience browsable.
 
 ## Environment Variables
 
-Root `.env.example` lists the backend defaults:
-- `API_BASE_URL`: Node API address (default `http://localhost:9101`).
-- `DATABASE_URL`: PostgreSQL connection string (use your Supabase/Neon pooler URL).
-- `DIRECT_URL`: Direct connection URL for Prisma migrations.
-- `FLAG_COMMERCE` / `FLAG_CMS` / `FLAG_ANALYTICS`: local flag fallbacks.
-- `UNLEASH_*`: optional Unleash configuration.
+The root `.env.example` bootstraps shared services:
+- `NODE_ENV`, `APP_URL`, `PORT`: base runtime configuration for local development.
+- `FLAG_COMMERCE`, `FLAG_CMS`, `FLAG_ANALYTICS`: feature flag fallbacks when Unleash is unavailable.
+- `API_BASE_URL`, `NEXT_PUBLIC_API_URL`: endpoints consumed by the web app and Node API.
+- `DATABASE_URL`, `SHADOW_DATABASE_URL`: PostgreSQL connection strings for Prisma migrations.
+- `REDIS_URL`, `JWT_SECRET`: backing infrastructure used by the Node API.
+- Keystone defaults (`KEYSTONE_URL`, `KEYSTONE_SESSION_SECRET`) for optional CMS integration.
+- Unleash defaults (`UNLEASH_URL`, `UNLEASH_API_TOKEN`, `UNLEASH_PROJECT`) for remote feature flags.
 
-Frontend `.env.local` only needs one variable:
-- `NEXT_PUBLIC_API_URL`: The deployed API base URL (e.g. `https://<api>.vercel.app`).
+The frontend `.env.local.example` only requires `NEXT_PUBLIC_API_URL`.
 
-## Next Steps
-
-- TODO: add Vitest unit tests and Playwright E2E coverage for storefront/admin/CMS flows.
-- TODO: extend `lib/mock` to support a fully offline demo mode.
+The Node API example at `apps/backend/node-api/.env.example` provides service-specific overrides including `PORT`, `DATABASE_URL`, `REDIS_URL`, and the feature flag fallbacks.
 
 Feel free to extend the backend modules, integrate Keystone, or automate more tests.
