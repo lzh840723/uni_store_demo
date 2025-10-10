@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { fetchFeatureFlags } from '@/lib/flags.server';
+import { getCurrentRole } from '@/lib/auth';
 
 const cards = [
   {
@@ -24,6 +25,7 @@ const cards = [
 
 export default async function HomePage() {
   const flags = await fetchFeatureFlags();
+  const role = getCurrentRole();
 
   return (
     <section className="surface" style={{ marginTop: '2rem' }}>
@@ -34,7 +36,10 @@ export default async function HomePage() {
       </p>
       <div className="card-grid" style={{ marginTop: '2rem' }}>
         {cards.map((card) => {
-          const disabled = !flags[card.feature as keyof typeof flags];
+          const featureOff = !flags[card.feature as keyof typeof flags];
+          const adminOnly = card.href.startsWith('/admin');
+          const roleBlocked = adminOnly && role !== 'ADMIN';
+          const disabled = featureOff || roleBlocked;
           return (
             <Link
               key={card.href}
@@ -49,7 +54,7 @@ export default async function HomePage() {
               <h2 style={{ marginTop: 0 }}>{card.title}</h2>
               <p style={{ fontSize: '0.95rem', color: 'rgba(15, 23, 42, 0.7)' }}>{card.description}</p>
               <span style={{ fontSize: '0.8rem', color: disabled ? '#ef4444' : '#16a34a' }}>
-                Flag: {disabled ? 'OFF' : 'ON'}
+                {featureOff ? 'Flag: OFF' : roleBlocked ? 'Role: Admin only' : 'Flag: ON'}
               </span>
             </Link>
           );
